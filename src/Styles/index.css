@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Sora', sans-serif;
+}
+
+.container-content {
+    overflow-x: auto;
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+}
+
+.container-content::-webkit-scrollbar {
+    display: none;  
+}
+
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50;
+}
+
+@media (max-width: 700px) {
+    .sidebar-content {
+        padding-left: 0;
+        padding-right: 0;
+        flex-direction: column;
+        justify-content: none;
+    }
+
+    .container-content {
+        padding-top: 70px;
+        margin-top: 20px;
+    }
+}

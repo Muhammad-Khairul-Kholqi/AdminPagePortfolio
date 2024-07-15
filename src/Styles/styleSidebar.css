@@ -1,0 +1,63 @@
+.container-sidebar {
+    overflow-x: auto;
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+}
+
+.container-sidebar::-webkit-scrollbar {
+    display: none;  
+}
+
+.container-navbar {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .container-sidebar {
+        width: 200px;
+    }
+
+    .my-photo img {
+        width: 80px;
+    }
+}
+
+@media (max-width: 800px) {
+    .container-sidebar {
+        width: 150px;
+    }
+
+    .my-photo img {
+        width: 70px;
+    }
+
+    .full-name {
+        font-size: 12px;
+    }
+
+    .icon-fullname {
+        font-size: 15px;
+    }
+
+    .text-unduh {
+        font-size: 11px;
+    }
+
+    .text-menu {
+        font-size: 10px;
+    }
+
+    .icon-menu {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .container-sidebar {
+        display: none;
+    }
+
+    .container-navbar {
+        display: flex;
+    }  
+}

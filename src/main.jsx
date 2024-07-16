@@ -8,6 +8,7 @@ import Sidebar from './Template/Sidebar';
 import Dashboard from './Page/Dashboard/Dashboard';
 
 import Profile from './Page/About/Profile/Profile';
+import EditProfile from './Page/About/Profile/EditProfile';
 
 const DefaultLayout = ({ children }) => {
   return (
@@ -43,6 +44,15 @@ const AnimatedRoutes = () => {
         element={
           <DefaultLayout>
             <Profile />
+          </DefaultLayout>
+        }
+      />
+
+      <Route
+        path="/aboutme/edit-data-profile/:id"
+        element={
+          <DefaultLayout>
+            <EditProfile />
           </DefaultLayout>
         }
       />

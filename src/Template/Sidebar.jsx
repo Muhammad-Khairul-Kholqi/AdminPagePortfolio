@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import axios from "axios";
+
 import "../Styles/styleSidebar.css";
+import UrlApi from '../Api/BaseApi';
 
 import BgProfile from "../Assets/bg-sidebar.jpg";
 import MyPhoto from "../Assets/my-photo.jpg";
 
 import { LiaBoxSolid } from "react-icons/lia";
-import { GrUserExpert } from "react-icons/gr";
 import { IoMdPaperPlane } from "react-icons/io";
 import { TbPencilMinus } from "react-icons/tb";
 import { LuLeaf } from "react-icons/lu";
@@ -18,20 +20,27 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 
 const Sidebar = () => {
     const location = useLocation();
+    const [profile, setProfile] = useState([]);
 
     const [isOpen, setIsOpen] = useState(false);
     const [isAboutOpen, setIsAboutOpen] = useState(false);
+
+    useEffect(() => {
+        axios.get(`${UrlApi}profile`)
+            .then(res => {
+                console.log('Data dari API:', res.data.data);
+                setProfile(res.data.data);
+            })
+            .catch(err => {
+                console.log(err);           
+            });
+    }, []);
 
     const MenuSidebar = [
         {
             path: "/",
             icon: <TbLayoutDashboard />,
             textIcon: "Dashboard",
-        },
-        {
-            path: "#",
-            icon: <GrUserExpert />,
-            textIcon: "Account",
         },
         {
             path: "#",
@@ -61,35 +70,35 @@ const Sidebar = () => {
             icon: <IoMdPaperPlane />,
             textIcon: "Contact",
         },
-        {
-            path: "/",
-            icon: <IoMdPaperPlane />,
-            textIcon: "Logout",
-        },
     ];
 
     return (
         <>
             <div className="container-sidebar p-[20px] w-[270px] h-screen">
-                <div
-                    className="my-photo pt-[90px] rounded-[10px] relative"
-                    style={{
-                        backgroundImage: `url(${BgProfile})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                >
-                    <img 
-                        className="w-[90px] bg-white shadow-md p-[2px] absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-[50%] hover:scale-105 duration-500"
-                        src={MyPhoto}
-                        draggable="false"
-                    />
-                </div>
+                {profile.map((item, index) => (
+                    <div
+                        key={index}
+                        className="my-photo pt-[90px] rounded-[10px] relative"
+                        style={{
+                            backgroundImage: `url(${BgProfile})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}
+                    >
+                        <img 
+                            className="w-[90px] h-[90px] bg-white shadow-md p-[2px] absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rounded-[50%] hover:scale-105 duration-500"
+                            src={`${UrlApi}${item.image}`}
+                            draggable="false"
+                        />
+                    </div>
+                ))}
 
-                <div className="name-username mt-[60px] text-center">
-                    <p className="full-name text-[20px] font-bold text-[#1F2937] font-sora tracking-tight">Khairul Kholqi</p>
-                    <p className="username text-gray-600 text-[13px]">@irulsss</p>
-                </div>
+                {profile.map((item, index) => (
+                    <div key={index} className="name-username mt-[60px] text-center">
+                        <p className="full-name text-[20px] font-bold text-[#1F2937] font-sora tracking-tight">{item.name}</p>
+                        <p className="username text-gray-600 text-[13px]">@{item.username}</p>
+                    </div>
+                ))}
 
                 <div className="menu-sidebar flex flex-col items-start mt-[20px]">
                     {MenuSidebar.map((menu, index) => (

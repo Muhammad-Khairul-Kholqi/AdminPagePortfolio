@@ -6,6 +6,7 @@ const Profile = () => {
         <div>
             <p className="font-bold text-3xl">Profile Data</p>
             <DataProfile />
+            <p>testing</p>
         </div>
     )
 }
